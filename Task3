@@ -1,0 +1,67 @@
+package com.company;
+import java.util.Scanner;
+import java.security.SecureRandom;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+
+
+
+public class Main {
+
+
+    public static void main(String[] args)  throws NoSuchAlgorithmException, NoSuchProviderException  {
+        boolean isTrue = true;
+        boolean isCorrect = false;
+        for(int i = 0; i < args.length; i++)
+            for (int j = i + 1; j < args.length; j++) {
+                if (args[i] == args[j]) {
+                    System.out.printf("%s", "Huinya");
+                    isTrue = false;
+                    break;
+                }
+            }
+        if (args.length >= 3 && args.length % 2 == 1 && args.length <= 5 && isTrue == true) {
+            int move;
+            SecureRandom secureRandomGenerator = SecureRandom.getInstance("SHA1PRNG", "SUN");
+            byte[] randomBytes = new byte[128];
+            secureRandomGenerator.nextBytes(randomBytes);
+            System.out.printf("%s", secureRandomGenerator);
+            switch(args.length) {
+                case 3: {
+                    do {
+                        System.out.printf("%s %s %s %s", "Available moves: \n1-", args[0] + "\n2-", args[1] + "\n3-", args[2]);
+                        System.out.printf("%s", "\n0- exit");
+                        System.out.printf("%s", "\nEnter your move:");
+                        Scanner scanner = new Scanner(System.in);
+                        move = scanner.nextInt();
+                        if (move > 3 || move < 0) isCorrect = true;
+                        else break;
+                    } while(isCorrect);
+                    if(move == 0) break;
+                    System.out.printf("%s", "Your move: " + args[move - 1]);
+                    break;
+                }
+                case 5: {
+                    do {
+                        System.out.printf("%s %s %s %s", "Available moves: \n1-", args[0] + "\n2-", args[1] + "\n3-", args[2]);
+                        System.out.printf("%s %s %s", "\n4-", args[3] + "\n5-", args[4] + "\n0- exit");
+                        System.out.printf("%s", "\nEnter your move:");
+                        Scanner scanner = new Scanner(System.in);
+                        move = scanner.nextInt();
+                        if (move > 5 || move < 0) isCorrect = true;
+                        else break;
+                    } while(isCorrect);
+                    if(move == 0) break;
+                    System.out.printf("%s", "Your move: " + args[move - 1]);
+                    break;
+                }
+            }
+        }
+        else {
+            System.out.printf("%s %s", "Ошибка", "\nКоличество строк должно быть равно 3 или 5");
+            System.out.printf("%s", "\nСтроки не должны повторяться");
+            System.out.printf("%s", "\nВозможные строки: rock, paper, scissors, lizard, spock");
+            System.out.printf("%s", "\nПример: >java -jar knm.jar rock paper scissors lizard Spock");
+        }
+    }
+}
